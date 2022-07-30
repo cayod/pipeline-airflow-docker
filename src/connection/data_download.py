@@ -55,7 +55,7 @@ class DataDownload():
             f"{LOCAL_TABLES_DIRECTORY}/csv/{DATE_STRING}")
         os.makedirs(csv_directory, exist_ok=True)
         csv_df.to_csv(f"{csv_directory}/{file_name}")
-        print("Files save in the directory...")
+        print("File save in the directory...")
 
 
 if __name__ == "__main__":
