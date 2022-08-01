@@ -5,7 +5,7 @@ import datetime
 from pandas import pandas as pd
 
 
-LOCAL_TABLES_DIRECTORY = os.getcwd() + "/data"
+LOCAL_TABLES_DIRECTORY = os.getcwd() + "/raw_data"
 DATE_STRING: str = datetime.date.today().strftime("%Y-%m-%d")
 
 
@@ -37,9 +37,10 @@ class DataDownload():
                 database_directory = (
                     f"{LOCAL_TABLES_DIRECTORY}/postgre/{DATE_STRING}")
                 os.makedirs(database_directory, exist_ok=True)
-                database_df.to_csv(f"{database_directory}/{table}.csv")
+                database_df.to_csv(
+                    f"{database_directory}/{table}.csv", index=False)
 
-            print("Files save in the directory...")
+            print("Files save in the directory. ")
         finally:
             DatabaseConnector.close()
 
@@ -55,12 +56,10 @@ class DataDownload():
             f"{LOCAL_TABLES_DIRECTORY}/csv/{DATE_STRING}")
         os.makedirs(csv_directory, exist_ok=True)
         csv_df.to_csv(f"{csv_directory}/{file_name}")
-        print("File save in the directory...")
+        print("File save in the directory.")
 
 
 if __name__ == "__main__":
-    step1 = DataDownload
+    step1 = DataDownload()
+    step1.download_tables()
     step1.download_csv()
-
-
-print(LOCAL_TABLES_DIRECTORY)

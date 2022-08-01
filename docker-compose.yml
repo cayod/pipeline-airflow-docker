@@ -12,3 +12,19 @@ services:
       - ./data/northwind.sql:/docker-entrypoint-initdb.d/northwind.sql
     ports:
       - 5432:5432
+
+  mysqldb:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: finaldb
+      MYSQL_USER: finaldb
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      # MySQL Port running inside container>
+      - '3306:3306'
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
