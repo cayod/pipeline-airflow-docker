@@ -3,6 +3,7 @@ version: '3'
 services:
   db:
     image: postgres:12
+    container_name: postgresdb
     environment:
       POSTGRES_DB: northwind
       POSTGRES_USER: northwind_user
@@ -14,12 +15,13 @@ services:
       - 5432:5432
 
   mysqldb:
-    image: mysql:8
+    image: mysql:5.7
     restart: always
+    container_name: mysqldb
     environment:
       MYSQL_DATABASE: finaldb
       MYSQL_USER: finaldb
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: finaldb
     ports:
       - '3306:3306'
   adminer:
@@ -32,6 +34,9 @@ services:
     image: puckel/docker-airflow:1.10.9
     container_name: airflow-container
     restart: always
+    depends_on:
+      - db
+      - mysqldb
     volumes:
       - ./data:/data
       - ./airflow/airflow.cfg:/usr/local/airflow/airflow.cfg

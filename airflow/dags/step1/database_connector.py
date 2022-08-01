@@ -5,14 +5,14 @@ class DatabaseConnector:
 
     @classmethod
     def connect(cls):
-        connection = None
+
         print('Connecting to the PostgreSQL database...')
         database_connection = postgree.connect(
             database="northwind",
             user='northwind_user',
             password='thewindisblowing',
-            host='127.0.0.1',
-            port='5432',
+            host='postgresdb',
+            port='5432'
         )
         cls.connection = database_connection
         return cls.connection

@@ -4,3 +4,4 @@ venv
 **/dbdata
 **/raw_data
 query_result.csv
+**/logs

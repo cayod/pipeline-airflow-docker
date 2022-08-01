@@ -5,14 +5,14 @@ import datetime
 from pandas import pandas as pd
 
 
-LOCAL_TABLES_DIRECTORY = os.getcwd() + "/raw_data"
+LOCAL_TABLES_DIRECTORY: str = os.getcwd() + "/raw_data"
 DATE_STRING: str = datetime.date.today().strftime("%Y-%m-%d")
 
 
 class DataDownload():
 
     @classmethod
-    def download_tables(cls):
+    def download_tables(cls) -> str:
         try:
             QUERY_TABLE = """SELECT table_name 
                                 FROM information_schema.tables 

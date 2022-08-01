@@ -8,8 +8,8 @@ class DatabaseConnector:
     def __init__(self):
         self.database = "finaldb"
         self.user = "root"
-        self.password = "123456"
-        self.host = "127.0.0.1"
+        self.password = "finaldb"
+        self.host = "mysqldb"
         self.port = "3306"
 
     def engine(self):

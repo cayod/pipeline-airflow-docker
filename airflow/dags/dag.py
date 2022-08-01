@@ -4,31 +4,34 @@ from airflow.utils.dates import days_ago
 
 
 default_args = {
-    'start_date': days_ago(2),
+    'start_date': days_ago(2)
 }
 
-templated_command = """
-  python3 {{ params.directory }}/{{ params.filename }}
+templated_command = """ cd {{ params.directory }}
+                    python3 {{ params.sub_directory }}{{ params.filename }} {{ execution_date }}
 """
-
 
 with DAG('pipeline',
          default_args=default_args,
          schedule_interval='@daily') as pipeline:
 
-    task_1 = BashOperator(task_id='download_data',
+    task_1 = BashOperator(task_id='task_1',
                           bash_command=templated_command,
-                          params={'filename': 'data_download.py', 'directory': '$AIRFLOW_HOME/airflow/step1'})
+                          params={'filename': 'data_download.py',
+                                  'sub_directory': 'step1/',
+                                  'directory': '$AIRFLOW_HOME/dags/'})
 
-    task_2 = BashOperator(task_id='upload_data',
+    task_2 = BashOperator(task_id='task_2',
                           bash_command=templated_command,
                           params={'filename': 'database_upload.py',
-                                  'directory': '$AIRFLOW_HOME/airflow/step2'})
+                                  'sub_directory': 'step2/',
+                                  'directory': '$AIRFLOW_HOME/dags/'})
 
-    task_3 = BashOperator(task_id='query_databse',
+    task_3 = BashOperator(task_id='task_3',
                           bash_command=templated_command,
                           params={'filename': 'query_database.py',
-                                  'directory': '$AIRFLOW_HOME/airflow/step2'})
+                                  'sub_directory': 'step2/',
+                                  'directory': '$AIRFLOW_HOME/dags/'})
 
 
 # Set the operator dependencies
