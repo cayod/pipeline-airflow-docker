@@ -4,7 +4,7 @@ import os
 import datetime
 from pandas import pandas as pd
 
-
+# Directory for save the data imported
 LOCAL_TABLES_DIRECTORY: str = os.getcwd() + "/raw_data"
 DATE_STRING: str = datetime.date.today().strftime("%Y-%m-%d")
 
@@ -13,15 +13,16 @@ class DataDownload():
 
     @classmethod
     def download_tables(cls) -> str:
+
         try:
             QUERY_TABLE = """SELECT table_name 
-                                FROM information_schema.tables 
-                                WHERE table_schema = 'public'"""
+                            FROM information_schema.tables 
+                            WHERE table_schema = 'public'"""
 
             database_connection = DatabaseConnector.connect()
             cursor = database_connection.cursor()
 
-            print("Quering database")
+            print("Quering database...")
 
             cursor.execute(QUERY_TABLE)
 
@@ -35,7 +36,7 @@ class DataDownload():
                             FROM {}""".format(table)
                 database_df = pd.read_sql(select, DatabaseConnector.connection)
                 database_directory = (
-                    f"{LOCAL_TABLES_DIRECTORY}/postgre/{DATE_STRING}")
+                    f"{LOCAL_TABLES_DIRECTORY}/postgres/{DATE_STRING}")
                 os.makedirs(database_directory, exist_ok=True)
                 database_df.to_csv(
                     f"{database_directory}/{table}.csv", index=False)
