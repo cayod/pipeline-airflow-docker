@@ -1,12 +1,10 @@
 from airflow.models import DAG
 from airflow.operators.bash_operator import BashOperator
-from datetime import datetime
+from airflow.utils.dates import days_ago
 
-today = DT.date.today()
-one_day_ago = today - DT.timedelta(days=1)
 
 default_args = {
-    'start_date': one_day_ago,
+    'start_date': days_ago(2),
 }
 
 templated_command = """
@@ -20,18 +18,17 @@ with DAG('pipeline',
 
     task_1 = BashOperator(task_id='download_data',
                           bash_command=templated_command,
-                          params={'filename': 'data_download.py',
-                                  'directory': '$AIRFLOW_HOME/airflow/step1'})
+                          params={'filename': 'data_download.py', 'directory': '$AIRFLOW_HOME/airflow/step1'})
 
     task_2 = BashOperator(task_id='upload_data',
                           bash_command=templated_command,
                           params={'filename': 'database_upload.py',
-                                  'directory': '$AIRFLOW_HOME/airflow/step2})
+                                  'directory': '$AIRFLOW_HOME/airflow/step2'})
 
     task_3 = BashOperator(task_id='query_databse',
                           bash_command=templated_command,
                           params={'filename': 'query_database.py',
-                                  'directory': '$AIRFLOW_HOME/airflow/step2})
+                                  'directory': '$AIRFLOW_HOME/airflow/step2'})
 
 
 # Set the operator dependencies

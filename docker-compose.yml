@@ -32,13 +32,9 @@ services:
     image: puckel/docker-airflow:1.10.9
     container_name: airflow-container
     restart: always
-    depends_on:
-      - db
-      - mysqldb
     volumes:
       - ./data:/data
       - ./airflow/airflow.cfg:/usr/local/airflow/airflow.cfg
-      - ./airflow/airflow.db:/usr/local/airflow/airflow.db
       - ./airflow/logs:/usr/local/airflow/logs
       - ./airflow/dags:/usr/local/airflow/dags
     ports:
