@@ -21,10 +21,23 @@ services:
       MYSQL_USER: finaldb
       MYSQL_ROOT_PASSWORD: 123456
     ports:
-      # MySQL Port running inside container>
       - '3306:3306'
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 8000:8000
+
+  airflow:
+    image: puckel/docker-airflow:1.10.9
+    container_name: airflow-container
+    restart: always
+    volumes:
+      - ./data:/data
+      - ./airflow/requirements.txt:/requirements.txt
+      - ./airflow/airflow.cfg:/usr/local/airflow/airflow.cfg
+      - ./airflow/airflow.db:/usr/local/airflow/airflow.db
+      - ./airflow/logs:/usr/local/airflow/logs
+      - ./airflow/dags:/usr/local/airflow/dags
+    ports:
+      - "8080:8080"
