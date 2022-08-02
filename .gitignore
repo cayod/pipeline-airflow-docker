@@ -1,6 +1,5 @@
 **/__pycache__
 venv
-**/data
 **/dbdata
 **/raw_data
 query_result.csv

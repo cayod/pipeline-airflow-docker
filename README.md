@@ -1,3 +1,34 @@
+# Solution
+
+The solution has been made using the Apache Airflow tool, working with the DAG (Directed Acyclic Graph) system that groups and organizes the tasks so that they occur interdependently.
+
+-  To configure all the environments necessary for the pipeline to start, make sure you run the `install.sh` file.
+
+-  After that, you will enter the Airflow environment, where you can test the tasks and run the pipeline.
+
+## Testing
+
+Tasks can be independently tested in the airflow environment by entering the task name and a past date as a reference.
+```
+airflow test pipeline task_1 2022-01-01
+```
+To run the pipeline in the past days.
+```
+airflow backfill pipeline -s 2022-01-01 -e 2022-01-02
+```
+
+The process flow consists of 3 tasks performed interdependently as shown in the image below.
+
+
+![image](https://www.dropbox.com/s/0wxhrjl7lbwz54k/Screenshot%20from%202022-08-01%2022-00-25.png?dl=0)
+
+1. The `northwind.sql` database and the `order_details.csv` table will be downloaded into the local filesystem according to their respective code execution date.
+
+2. All tables saved in the local directory will be persisted in a mysql database.
+
+3. A query is made in the database seeking data from the orders and orders_detais tables and a query_result.csv file is generated in the dags directory
+
+
 # code-challenge
 Indicium code challenge for Software Developer focusing on data projects
 
