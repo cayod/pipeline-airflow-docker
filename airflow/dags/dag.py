@@ -3,7 +3,7 @@ from airflow.operators.bash_operator import BashOperator
 from airflow.utils.dates import days_ago
 
 
-default_args = {"start_date": days_ago(2)}
+default_args: str = {"start_date": days_ago(2)}
 
 templated_command = """ cd {{ params.directory }}
                     python3 {{ params.sub_directory }}{{ params.filename }} {{ execution_date }}

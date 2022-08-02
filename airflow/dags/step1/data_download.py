@@ -10,14 +10,22 @@ DATE_STRING: str = datetime.date.today().strftime("%Y-%m-%d")
 
 
 class DataDownload():
+    '''Class to download the data'''
 
     @classmethod
     def download_tables(cls) -> str:
+        '''Download the tables from database
+
+            Args:
+                None.
+
+            Return:
+                str: Tables save in the directory. '''
 
         try:
-            QUERY_TABLE = """SELECT table_name 
-                            FROM information_schema.tables 
-                            WHERE table_schema = 'public'"""
+            QUERY_TABLE: str = """SELECT table_name 
+                                FROM information_schema.tables 
+                                WHERE table_schema = 'public'"""
 
             database_connection = DatabaseConnector.connect()
             cursor = database_connection.cursor()
@@ -49,6 +57,14 @@ class DataDownload():
 
     @classmethod
     def download_csv(cls) -> None:
+        '''Download the csv from directory
+
+            Args:
+                None.
+
+            Return:
+                None: file save in the directory. '''
+
         path_csv = "data/order_details.csv"
         file_name = os.path.basename(path_csv)
         print("Exporting csv file.")

@@ -3,14 +3,23 @@ from pandas import pandas as pd
 from database_connector import DatabaseConnector
 import re
 
-LOCAL_TABLES_DIRECTORY = os.getcwd() + "/raw_data"
-CSV_REGEX = '^\w+\.csv$'
+LOCAL_TABLES_DIRECTORY: str = os.getcwd() + "/raw_data"
+CSV_REGEX: str = '^\w+\.csv$'
 
 
 class DatabaseUpload():
+    '''Export the files in to the database'''
 
     @classmethod
-    def upload_tables(cls):
+    def upload_tables(cls) -> None:
+        '''Export csv files to database
+
+            Args:
+                None.
+
+            Return:
+                str: All tables have been exported.  '''
+
         database_engine = DatabaseConnector()
         engine = database_engine.engine()
         for root, dirs, files in os.walk(LOCAL_TABLES_DIRECTORY, topdown=False):
@@ -24,7 +33,7 @@ class DatabaseUpload():
                               engine,
                               if_exists='replace',
                               index=False)
-        print("All tables have been exported.")
+        return print("All tables have been exported.")
 
 
 if __name__ == "__main__":
