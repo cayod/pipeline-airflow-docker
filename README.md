@@ -28,17 +28,12 @@ The process flow consists of 3 tasks performed interdependently as shown in the 
 3. A query is made in the database seeking data from the orders and orders_detais tables and a query_result.csv file is generated in the dags directory
 
 
-# code-challenge
-Indicium code challenge for Software Developer focusing on data projects
-
-# Indicium Tech Code Challenge
+# Code Challenge
 
 Code challenge for Software Developer with focus in data projects.
 
 
 ## Context
-
-At Indicium we have many projects where we develop the whole data pipeline for our client, from extracting data from many data sources to loading this data at its final destination, with this final destination varying from a data warehouse for a Business Intelligency tool to an api for integrating with third party systems.
 
 As a software developer with focus in data projects your mission is to plan, develop, deploy, and maintain a data pipeline.
 
@@ -116,5 +111,3 @@ You can find the credentials at the docker-compose.yml file
 
 You can use any language you like, but keep in mind that we will have to run your pipeline, so choosing some languague or tooling that requires a complex environment might not be a good idea.
 You are free to use opensource libs and frameworks, but also keep in mind that **you have to write code**. Point and click tools are not allowed.
-
-Thank you for participating!
